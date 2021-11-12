@@ -26,12 +26,21 @@ import {
   Tooltip,
   Pagination,
   Dialog,
-  MessageBox
+  MessageBox,
+  Tag,
+  Tree,
+  Select,
+  Option,
+  Cascader,
+  Alert,
+  Tabs,
+  TabPane
 } from 'element-ui'
 import './assets/css/global.css'
 import './assets/fonts/iconfont.css'
 import axios from 'axios'
 import qs from 'qs'
+import TreeTable from 'vue-table-with-tree-grid'
 
 axios.defaults.baseURL = 'http://localhost:90/'
 axios.interceptors.request.use(config => {
@@ -66,6 +75,15 @@ Vue.component(Switch.name, Switch)
 Vue.component(Tooltip.name, Tooltip)
 Vue.component(Pagination.name, Pagination)
 Vue.component(Dialog.name, Dialog)
+Vue.component(Tag.name, Tag)
+Vue.component(Tree.name, Tree)
+Vue.component(Select.name, Select)
+Vue.component(Option.name, Option)
+Vue.component('tree-table', TreeTable)
+Vue.component(Cascader.name, Cascader)
+Vue.component(Alert.name, Alert)
+Vue.component(Tabs.name, Tabs)
+Vue.component(TabPane.name, TabPane)
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
