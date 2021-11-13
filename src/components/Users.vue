@@ -41,6 +41,7 @@
       </el-table>
       <el-pagination @size-change='handleSizeChange' @current-change='handleCurrentChange'
                      :current-page='queryInfo.pageNum'
+                     background
                      :page-sizes='[5, 10, 20, 50]'
                      :page-size='queryInfo.pageSize'
                      layout='total, sizes, prev, pager, next, jumper'
@@ -119,7 +120,6 @@
 
   </div>
 </template>
-home
 <script>
 export default {
   name: 'Users',

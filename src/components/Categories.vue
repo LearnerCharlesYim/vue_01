@@ -39,6 +39,7 @@
       <el-pagination @size-change='handleSizeChange' @current-change='handleCurrentChange'
                      :current-page='queryInfo.pageNum'
                      :page-sizes='[5, 10, 20, 50]'
+                     background
                      :page-size='queryInfo.pageSize'
                      layout='total, sizes, prev, pager, next, jumper'
                      :total='total'>
