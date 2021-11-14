@@ -213,33 +213,50 @@ export default {
       this.addForm.pics.splice(index, 1)
     },
     handleSuccess (response) {
-      const picInfo = { pic: response.data.path }
+      const picInfo = { picMid: response.data.path }
       this.addForm.pics.push(picInfo)
     },
     addGoods () {
-      this.$refs.addFormRef.validate(valid => {
+      this.$refs.addFormRef.validate(async valid => {
         if (!valid) return this.$message.error('请填写必要表单项')
         this.dynamicData.forEach(item => {
           const newInfo = {
-            attrId: item.id,
-            attrValue: item.tag.join(',')
+            attrName: item.id,
+            attrValue: item.tag.join(','),
+            attrStatic: 0
           }
           this.addForm.attrs.push(newInfo)
         })
         this.staticData.forEach(item => {
           const newInfo = {
-            attrId: item.id,
-            attrValue: item.result
+            attrName: item.id,
+            attrValue: item.result,
+            attrStatic: 1
           }
           this.addForm.attrs.push(newInfo)
         })
         const form = _.cloneDeep(this.addForm)
         form.categoryIds = form.categoryIds.join(',')
-        console.log(form)
+
+        for (let i = 0; i < form.attrs.length; i++) {
+          form['attrs[' + i + '].attrName'] = form.attrs[i].attrName
+          form['attrs[' + i + '].attrStatic'] = form.attrs[i].attrStatic
+          form['attrs[' + i + '].attrValue'] = form.attrs[i].attrValue
+        }
+        for (let i = 0; i < form.pics.length; i++) {
+          form['pics[' + i + '].picMid'] = form.pics[i].picMid
+        }
+        form.attrs = undefined
+        form.pics = undefined
+        const { data: res } = await this.$http.post('/goods/add', form)
+        if (res.state !== 201) return this.$message.error(res.message)
+        this.$message.success('添加商品成功')
+        this.$router.push('/goods')
       })
     }
   },
   computed: {
+    // 商品分类
     cid () {
       if (this.addForm.categoryIds.length === 3) {
         return this.addForm.categoryIds[2]
